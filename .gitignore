@@ -1,5 +1,4 @@
-# Software Files #
-##################
+.DS_Store
 *.gz
 *.zip
 *.jar
@@ -7,4 +6,3 @@
 *.bin
 *.vdi
 *.rpm
-database/ol7_19/demo/

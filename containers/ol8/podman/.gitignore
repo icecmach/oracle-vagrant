@@ -1,4 +1,0 @@
-*.vdi
-.vagrant
-software/*.tar.gz
-software/*.zip

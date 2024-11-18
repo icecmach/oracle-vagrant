@@ -1,8 +1,6 @@
 # Vagrant Builds
 
-Just some Vagrant builds I use.
-
-Feel free to copy or fork this stuff. It's unlikely I'll accept pull requests as it's just my playground.
+Oracle Vagrant builds.
 
 ## Required Software
 
