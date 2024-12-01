@@ -1,13 +1,13 @@
 shared:
   box: oraclebase/oracle-9
-  non_rotational: 'on'
-  asm_crs_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_1.vdi
-  asm_crs_disk_2: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_2.vdi
-  asm_crs_disk_3: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_3.vdi
-  asm_crs_disk_size: 2
-  asm_data_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_data_disk_1.vdi
+  non_rotational: "on"
+  asm_crs_disk_1: ./asm_crs_disk_1.vdi
+  asm_crs_disk_2: ./asm_crs_disk_2.vdi
+  asm_crs_disk_3: ./asm_crs_disk_3.vdi
+  asm_crs_disk_size: 4
+  asm_data_disk_1: ./asm_data_disk_1.vdi
   asm_data_disk_size: 40
-  asm_reco_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_reco_disk_1.vdi
+  asm_reco_disk_1: ./asm_reco_disk_1.vdi
   asm_reco_disk_size: 20
 
 dns:
