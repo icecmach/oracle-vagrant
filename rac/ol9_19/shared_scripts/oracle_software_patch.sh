@@ -7,11 +7,14 @@ echo "Patch Oracle Grid Infrastructure Software." `date`
 echo "HOSTNAME=$HOSTNAME"
 echo "ORACLE_HOME=$1"
 echo "******************************************************************************"
- 
+
+# Doc ID 2002334.1
+export PERL5LIB=$ORACLE_HOME/perl/lib
+
 # Adjust to suit your patch level.
 export ORACLE_HOME=${1}
 export PATH=${ORACLE_HOME}/bin:$PATH
-export PATH=${PATH}:${ORACLE_HOME}/OPatch
+export PATH=$ORACLE_HOME/perl/bin:${PATH}:${ORACLE_HOME}/OPatch
 
 echo "******************************************************************************"
 echo "Unzip software." `date`

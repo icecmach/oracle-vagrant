@@ -4,8 +4,9 @@ Oracle Vagrant builds.
 
 ## Required Software
 
-* [Vagrant](https://www.vagrantup.com/downloads.html)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant](https://developer.hashicorp.com/vagrant/downloads)
+* [Git](https://git-scm.com/downloads)
 
 ## What is Vagrant?
 

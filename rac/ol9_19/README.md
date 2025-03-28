@@ -4,13 +4,9 @@ The Vagrant scripts here will allow you to build a 19c Real Application Clusters
 
 This build is based on this [article](https://oracle-base.com/articles/19c/oracle-db-19c-rac-installation-on-oracle-linux-9-using-virtualbox) from oracle-base.
 
-## Required Software
-
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant](https://www.vagrantup.com/downloads.html)
-* Git
-
 You will also need to download the 19c grid and database software, along with the latest combo patch for grid. This means you must have an Oracle Support account to complete this installation.
+
+## Required Software
 
 * [Grid: LINUX.X64_193000_grid_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
 * [Database: LINUX.X64_193000_db_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
