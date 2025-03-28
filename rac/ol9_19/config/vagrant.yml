@@ -1,13 +1,14 @@
 shared:
-  box: oraclebase/oracle-9
+  box: oraclelinux/9-btrfs
+  box_url: https://oracle.github.io/vagrant-projects/boxes/oraclelinux/9-btrfs.json
   non_rotational: "on"
-  asm_crs_disk_1: ./asm_crs_disk_1.vdi
-  asm_crs_disk_2: ./asm_crs_disk_2.vdi
-  asm_crs_disk_3: ./asm_crs_disk_3.vdi
+  asm_crs_disk_1: ../asm_crs_disk_1.vdi
+  asm_crs_disk_2: ../asm_crs_disk_2.vdi
+  asm_crs_disk_3: ../asm_crs_disk_3.vdi
   asm_crs_disk_size: 4
-  asm_data_disk_1: ./asm_data_disk_1.vdi
+  asm_data_disk_1: ../asm_data_disk_1.vdi
   asm_data_disk_size: 40
-  asm_reco_disk_1: ./asm_reco_disk_1.vdi
+  asm_reco_disk_1: ../asm_reco_disk_1.vdi
   asm_reco_disk_size: 20
 
 dns:
@@ -18,7 +19,7 @@ dns:
 
 node1:
   vm_name: ol9_19_rac1
-  mem_size: 7168
+  mem_size: 8196
   cpus: 4
   public_ip: 192.168.56.101
   private_ip: 192.168.1.101
@@ -26,7 +27,7 @@ node1:
 
 node2:
   vm_name: ol9_19_rac2
-  mem_size: 6144
+  mem_size: 8196
   cpus: 4
   public_ip: 192.168.56.102
   private_ip: 192.168.1.102

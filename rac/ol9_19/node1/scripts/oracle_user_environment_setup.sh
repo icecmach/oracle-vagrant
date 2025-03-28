@@ -19,14 +19,26 @@ export DB_HOME=\$ORACLE_BASE/${DB_HOME_EXT}
 export ORACLE_HOME=\$DB_HOME
 export ORACLE_SID=${NODE1_ORACLE_SID}
 export ORACLE_TERM=xterm
+export JAVA_HOME=\$ORACLE_HOME/jdk
 export BASE_PATH=/usr/sbin:\$PATH
-export PATH=\$ORACLE_HOME/bin:\$BASE_PATH
+export PATH=\$ORACLE_HOME/bin:\$BASE_PATH:\$JAVA_HOME/bin:\$ORACLE_HOME/perl/bin
 
 export LD_LIBRARY_PATH=\$ORACLE_HOME/lib:/lib:/usr/lib
 export CLASSPATH=\$ORACLE_HOME/JRE:\$ORACLE_HOME/jlib:\$ORACLE_HOME/rdbms/jlib
 
 alias grid_env='. /home/oracle/scripts/grid_env'
 alias db_env='. /home/oracle/scripts/db_env'
+
+alias sdba='sqlplus / as sysdba'
+alias sq='sql / as sysdba'
+alias rmant='rman target /'
+alias pora='ps -ef | grep pmon'
+alias orab='cd $ORACLE_BASE'
+alias orah='cd $ORACLE_HOME'
+alias ctns='cd $ORACLE_HOME/network/admin'
+alias la='ls -lAh'
+alias ll='ls -lh'
+alias envs='env | sort'
 EOF
 
 cat >> /home/oracle/.bash_profile <<EOF
@@ -36,7 +48,8 @@ EOF
 cat > /home/oracle/scripts/grid_env <<EOF
 export ORACLE_SID=+ASM1
 export ORACLE_HOME=\$GRID_HOME
-export PATH=\$ORACLE_HOME/bin:\$BASE_PATH
+export JAVA_HOME=\$ORACLE_HOME/jdk
+export PATH=\$ORACLE_HOME/bin:\$BASE_PATH:\$JAVA_HOME/bin:\$ORACLE_HOME/perl/bin
 
 export LD_LIBRARY_PATH=\$ORACLE_HOME/lib:/lib:/usr/lib
 export CLASSPATH=\$ORACLE_HOME/JRE:\$ORACLE_HOME/jlib:\$ORACLE_HOME/rdbms/jlib
@@ -45,7 +58,8 @@ EOF
 cat > /home/oracle/scripts/db_env <<EOF
 export ORACLE_SID=${NODE1_ORACLE_SID}
 export ORACLE_HOME=\$DB_HOME
-export PATH=\$ORACLE_HOME/bin:\$BASE_PATH
+export JAVA_HOME=\$ORACLE_HOME/jdk
+export PATH=\$ORACLE_HOME/bin:\$BASE_PATH:\$JAVA_HOME/bin:\$ORACLE_HOME/perl/bin
 
 export LD_LIBRARY_PATH=\$ORACLE_HOME/lib:/lib:/usr/lib
 export CLASSPATH=\$ORACLE_HOME/JRE:\$ORACLE_HOME/jlib:\$ORACLE_HOME/rdbms/jlib
@@ -106,4 +120,4 @@ unzip -oq /vagrant_software/${PATCH_FILE}
 scp ${GRID_HOME}/cv/rpm/cvuqdisk-1.0.10-1.rpm oracle@${NODE2_HOSTNAME}:/tmp
 
 # Optional cluster verification.
-#${GRID_HOME}/runcluvfy.sh stage -pre crsinst -n "${NODE1_HOSTNAME},${NODE2_HOSTNAME}"
+# ${GRID_HOME}/runcluvfy.sh stage -pre crsinst -n "${NODE1_HOSTNAME},${NODE2_HOSTNAME}"

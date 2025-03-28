@@ -4,21 +4,18 @@ echo "**************************************************************************
 
 . /vagrant_config/install.env
 
+dnf install -y -q oracle-database-preinstall-19c
+
 sh /vagrant_scripts/prepare_u01_disk.sh
-
+sh /vagrant_scripts/configure_shared_disks.sh
 sh /vagrant_scripts/install_os_packages.sh
-
-echo "******************************************************************************"
-echo "Set root and oracle password and change ownership of /u01." `date`
-echo "******************************************************************************"
-echo -e "${ROOT_PASSWORD}\n${ROOT_PASSWORD}" | passwd
-echo -e "${ORACLE_PASSWORD}\n${ORACLE_PASSWORD}" | passwd oracle
-mkdir -p ${SOFTWARE_DIR}
-chown -R oracle:oinstall /u01
-chmod -R 775 /u01
-usermod -aG vagrant oracle
-
+sh /vagrant_scripts/configure_chrony.sh
 sh /vagrant_scripts/configure_hosts_base.sh
+
+echo "******************************************************************************"
+echo "Set Hostname." `date`
+echo "******************************************************************************"
+hostnamectl set-hostname ${NODE1_HOSTNAME}
 
 cat > /etc/resolv.conf <<EOF
 search localdomain
@@ -29,14 +26,20 @@ EOF
 sed -i -e "s|\[main\]|\[main\]\ndns=none|g" /etc/NetworkManager/NetworkManager.conf
 systemctl restart NetworkManager.service
 
-sh /vagrant_scripts/configure_chrony.sh
-
-sh /vagrant_scripts/configure_shared_disks.sh
+# Allow ssh with password for initial setup
+echo "PermitRootLogin yes
+PasswordAuthentication yes" > /etc/ssh/sshd_config.d/01-permitrootlogin.conf
+systemctl restart sshd
 
 echo "******************************************************************************"
-echo "Set Hostname." `date`
+echo "Set root and oracle password and change ownership of /u01." `date`
 echo "******************************************************************************"
-hostnamectl set-hostname ${NODE1_HOSTNAME}
+echo -e "${ROOT_PASSWORD}\n${ROOT_PASSWORD}" | passwd
+echo -e "${ORACLE_PASSWORD}\n${ORACLE_PASSWORD}" | passwd oracle
+mkdir -p ${SOFTWARE_DIR}
+chown -R oracle:oinstall /u01
+chmod -R 775 /u01
+usermod -aG vagrant oracle
 
 su - oracle -c 'sh /vagrant/scripts/oracle_user_environment_setup.sh'
 . /home/oracle/scripts/setEnv.sh
@@ -58,7 +61,6 @@ chmod -R 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
 ssh ${NODE1_HOSTNAME} date
 echo "${ROOT_PASSWORD}" > /tmp/temp1.txt
-
 ssh-keyscan -H ${NODE2_HOSTNAME} >> ~/.ssh/known_hosts
 ssh-keyscan -H ${NODE2_FQ_HOSTNAME} >> ~/.ssh/known_hosts
 ssh-keyscan -H ${NODE2_PUBLIC_IP} >> ~/.ssh/known_hosts
@@ -76,6 +78,15 @@ sshpass -f /tmp/temp1.txt ssh-copy-id ${NODE1_HOSTNAME}
 EOF
 
 ssh ${NODE2_HOSTNAME} 'bash -s' < /tmp/ssh-setup.sh
+ssh ${NODE2_HOSTNAME} << 'EOF'
+echo "# root login policy when using ssh. Remove this file to revert to default.
+PermitRootLogin prohibit-password" > /etc/ssh/sshd_config.d/01-permitrootlogin.conf
+EOF
+ssh ${NODE2_HOSTNAME} 'sudo systemctl restart sshd'
+
+echo "# root login policy when using ssh. Remove this file to revert to default.
+PermitRootLogin prohibit-password" > /etc/ssh/sshd_config.d/01-permitrootlogin.conf
+systemctl restart sshd
 
 echo "******************************************************************************"
 echo "Install cvuqdisk package." `date`
@@ -94,11 +105,10 @@ sh ${GRID_HOME}/root.sh
 ssh root@${NODE2_HOSTNAME} sh ${GRID_HOME}/root.sh
 
 su - oracle -c 'sh /vagrant/scripts/oracle_grid_software_config.sh'
-
 su - oracle -c 'sh /vagrant/scripts/oracle_db_software_installation.sh'
 
 echo "******************************************************************************"
-echo "Run DB root scripts." `date` 
+echo "Run DB root scripts." `date`
 echo "******************************************************************************"
 sh ${ORACLE_HOME}/root.sh
 ssh root@${NODE2_HOSTNAME} sh ${ORACLE_HOME}/root.sh

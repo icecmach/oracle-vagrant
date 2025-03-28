@@ -104,7 +104,7 @@ $ tree
 |   +--- p35742441_190000_Linux-x86-64.zip
 |   +--- put_software_here.txt
 
-$ 
+$
 ```
 
 ## Amend File Paths
@@ -218,6 +218,9 @@ I have seen this a few times on a Windows laptop (my main workstation). I've not
 There are two workarounds for this.
 
 Disable the VirtualBox DHCP server. Navigate to "File > Host Network Manager > DHCP Server (tab)". Uncheck the "Enable Server" checkbox and click the "Apply" button.
+
+vboxmanage list dhcpservers
+vboxmanage dhcpserver remove --netname HostInterfaceNetworking-vboxnet0
 
 Alternatively, do the following during the startup process.
 
