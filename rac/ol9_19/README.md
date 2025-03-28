@@ -2,22 +2,18 @@
 
 The Vagrant scripts here will allow you to build a 19c Real Application Clusters (RAC) system by just starting the VMs in the correct order.
 
-If you need a more detailed description of this build, check out the article here.
-
-* [Oracle Database 19c RAC On Oracle Linux 9 Using VirtualBox and Vagrant](https://oracle-base.com/articles/19c/oracle-db-19c-rac-installation-on-oracle-linux-9-using-virtualbox)
+This build is based on this [article](https://oracle-base.com/articles/19c/oracle-db-19c-rac-installation-on-oracle-linux-9-using-virtualbox) from oracle-base.
 
 ## Required Software
 
-Download and install the following software. If you can't figure out this step, you probably shouldn't be considering a RAC installation.
-
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant](https://www.vagrantup.com/downloads.html)
-* Git client. Pick one that matches your OS.
+* Git
 
 You will also need to download the 19c grid and database software, along with the latest combo patch for grid. This means you must have an Oracle Support account to complete this installation.
 
-* [Grid : LINUX.X64_193000_grid_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
-* [Database : LINUX.X64_193000_db_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
+* [Grid: LINUX.X64_193000_grid_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
+* [Database: LINUX.X64_193000_db_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
 * [Patch 36031453: COMBO OF OJVM RU COMPONENT 19.22.0.0.240116 + GI RU 19.22.0.0.240116](https://support.oracle.com)
 * [Patch 6880880: OPatch 19.x](https://updates.oracle.com/download/6880880.html)
 
@@ -25,30 +21,12 @@ You will also need to download the 19c grid and database software, along with th
 
 This installation requires a lot of memory.
 
-The smallest system I've completed this on had 16G RAM, with the VM memory settings as follows and nothing else running.
+It uses at least 17G RAM just for the VMs.
 
 ```
-dns:
-  mem_size: 1024
-
-node1:
-  mem_size: 7168
-
-node2:
-  mem_size: 6144
-```
-
-The more memory you can throw at this the better. I regularly use 21G RAM just for the VMs, not including the memory for the host system.
-
-```
-dns:
-  mem_size: 1024
-
-node1:
-  mem_size: 10240
-
-node2:
-  mem_size: 10240
+dns:   mem_size: 1024
+node1: mem_size: 8192
+node2: mem_size: 8192
 ```
 
 ## Clone Repository
@@ -56,55 +34,56 @@ node2:
 Pick an area on your file system to act as the base for this git repository and issue the following command. If you are working on Windows, remember to check your Git settings for line terminators. If the bash scripts are converted to Windows terminators you will have problems.
 
 ```
-git clone https://github.com/oraclebase/vagrant.git
+git clone https://github.com/icecreammachine/oracle-vagrant.git
 ```
 
 Copy the Oracle software under the "..../software/" directory. From the "rac" subdirectory, the structure should look like this.
 
 ```
-$ tree
+➜ tree
 .
-+--- config
-|   +--- install.env
-|   +--- vagrant.yml
-+--- dns
-|   +--- scripts
-|   |   +--- root_setup.sh
-|   |   +--- setup.sh
-|   +--- Vagrantfile
-+--- node1
-|   +--- scripts
-|   |   +--- oracle_create_database.sh
-|   |   +--- oracle_db_software_installation.sh
-|   |   +--- oracle_grid_software_config.sh
-|   |   +--- oracle_grid_software_installation.sh
-|   |   +--- oracle_user_environment_setup.sh
-|   |   +--- root_setup.sh
-|   |   +--- setup.sh
-|   +--- Vagrantfile
-+--- node2
-|   +--- scripts
-|   |   +--- oracle_user_environment_setup.sh
-|   |   +--- root_setup.sh
-|   |   +--- setup.sh
-|   +--- Vagrantfile
-+--- README.md
-+--- shared_scripts
-|   +--- configure_chrony.sh
-|   +--- configure_hosts_base.sh
-|   +--- configure_hosts_scan.sh
-|   +--- configure_shared_disks.sh
-|   +--- install_os_packages.sh
-|   +--- oracle_software_patch.sh
-|   +--- prepare_u01_disk.sh
-+--- software
-|   +--- LINUX.X64_193000_db_home.zip
-|   +--- LINUX.X64_193000_grid_home.zip
-|   +--- p6880880_190000_Linux-x86-64.zip
-|   +--- p35742441_190000_Linux-x86-64.zip
-|   +--- put_software_here.txt
+├── config
+│   ├── install.env
+│   └── vagrant.yml
+├── dns
+│   ├── scripts
+│   │   ├── dnsmasq-setup.sh
+│   │   ├── root_setup.sh
+│   │   └── setup.sh
+│   └── Vagrantfile
+├── node1
+│   ├── scripts
+│   │   ├── oracle_create_database.sh
+│   │   ├── oracle_db_software_installation.sh
+│   │   ├── oracle_grid_software_config.sh
+│   │   ├── oracle_grid_software_installation.sh
+│   │   ├── oracle_user_environment_setup.sh
+│   │   ├── root_setup.sh
+│   │   └── setup.sh
+│   └── Vagrantfile
+├── node2
+│   ├── scripts
+│   │   ├── oracle_user_environment_setup.sh
+│   │   ├── root_setup.sh
+│   │   └── setup.sh
+│   └── Vagrantfile
+├── README.md
+├── shared_scripts
+│   ├── configure_chrony.sh
+│   ├── configure_hosts_base.sh
+│   ├── configure_hosts_scan.sh
+│   ├── configure_shared_disks.sh
+│   ├── install_os_packages.sh
+│   ├── oracle_software_patch.sh
+│   └── prepare_u01_disk.sh
+└── software
+    ├── LINUX.X64_193000_db_home.zip
+    ├── LINUX.X64_193000_grid_home.zip
+    ├── p36866740_190000_Linux-x86-64.zip
+    ├── p6880880_190000_Linux-x86-64.zip
+    └── put_software_here.txt
 
-$
+10 directories, 38 files
 ```
 
 ## Amend File Paths
@@ -114,27 +93,27 @@ The "config" directory contains a "install.env" and a "vagrant.yml" file. The co
 At minimum you will have to amend the following paths in the "vagrant.yml" file, providing suitable paths for the shared disks.
 
 ```
-  asm_crs_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_1.vdi
-  asm_crs_disk_2: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_2.vdi
-  asm_crs_disk_3: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_3.vdi
-  asm_crs_disk_size: 2
-  asm_data_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_data_disk_1.vdi
-  asm_data_disk_size: 40
-  asm_reco_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_reco_disk_1.vdi
-  asm_reco_disk_size: 20
+asm_crs_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_1.vdi
+asm_crs_disk_2: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_2.vdi
+asm_crs_disk_3: /u05/VirtualBox/shared/ol9_19_rac/asm_crs_disk_3.vdi
+asm_crs_disk_size: 2
+asm_data_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_data_disk_1.vdi
+asm_data_disk_size: 40
+asm_reco_disk_1: /u05/VirtualBox/shared/ol9_19_rac/asm_reco_disk_1.vdi
+asm_reco_disk_size: 20
 ```
 
 For example, if you were working on a Windows PC, you might create a path called "C:\VirtualBox\shared\ol9_19_rac" and use the following settings.
 
 ```
-  asm_crs_disk_1: C:\VirtualBox\shared\ol9_19_rac\asm_crs_disk_1.vdi
-  asm_crs_disk_2: C:\VirtualBox\shared\ol9_19_rac\asm_crs_disk_2.vdi
-  asm_crs_disk_3: C:\VirtualBox\shared\ol9_19_rac\asm_crs_disk_3.vdi
-  asm_crs_disk_size: 2
-  asm_data_disk_1: C:\VirtualBox\shared\ol9_19_rac\asm_data_disk_1.vdi
-  asm_data_disk_size: 40
-  asm_reco_disk_1: C:\VirtualBox\shared\ol9_19_rac\asm_reco_disk_1.vdi
-  asm_reco_disk_size: 20
+asm_crs_disk_1: C:\VirtualBox\shared\ol9_19_rac\asm_crs_disk_1.vdi
+asm_crs_disk_2: C:\VirtualBox\shared\ol9_19_rac\asm_crs_disk_2.vdi
+asm_crs_disk_3: C:\VirtualBox\shared\ol9_19_rac\asm_crs_disk_3.vdi
+asm_crs_disk_size: 2
+asm_data_disk_1: C:\VirtualBox\shared\ol9_19_rac\asm_data_disk_1.vdi
+asm_data_disk_size: 40
+asm_reco_disk_1: C:\VirtualBox\shared\ol9_19_rac\asm_reco_disk_1.vdi
+asm_reco_disk_size: 20
 ```
 
 If you don't alter them, they will get written to "C:\u05\VirtualBox\shared\ol9_19_rac".
@@ -219,14 +198,7 @@ There are two workarounds for this.
 
 Disable the VirtualBox DHCP server. Navigate to "File > Host Network Manager > DHCP Server (tab)". Uncheck the "Enable Server" checkbox and click the "Apply" button.
 
+```
 vboxmanage list dhcpservers
 vboxmanage dhcpserver remove --netname HostInterfaceNetworking-vboxnet0
-
-Alternatively, do the following during the startup process.
-
-* Start up DNS.
-* Start Node2.
-* Start Node1.
-* While Node1 is doing the OS prerequisites, stop and start the DNS node (vagrant halt, then vagrant up). That's not a rebuild. Just a restart. Clearly the DNS must be restarted before the installation takes place.
-
-Something about the DNS restart allows Node1 to see the DNS.
+```
