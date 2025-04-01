@@ -132,7 +132,7 @@ cd ../node2
 vagrant up
 ```
 
-Start the first node of the cluster. This will perform all of the installations operations. Depending on the spec of the host system, this could take a long time. On one of my servers it took about 3.5 hours to complete.
+Start the first node of the cluster. This will perform all of the installations operations. Depending on the spec of the host system, this could take a long time. It took about 1h10min to complete in my workstation.
 
 ```
 cd ../node1
@@ -188,11 +188,11 @@ default:    CAUSE: The name you provided as the SCAN could not be resolved using
 default:    ACTION: Provide name to use for the SCAN for which the domain can be resolved.
 ```
 
-I have seen this a few times on a Windows laptop (my main workstation). I've not seen it on macOS or Linux. It is almost like Node1 can't see the DNS, even though it is there, and Node2 can see it. I figure it must be some silly eccentricity of VirtualBox on Windows.
+To fix it, disable the VirtualBox DHCP server:
 
-There are two workarounds for this.
+On the GUI, navigate to "File > Host Network Manager > DHCP Server (tab)". Uncheck the "Enable Server" checkbox and click the "Apply" button.
 
-Disable the VirtualBox DHCP server. Navigate to "File > Host Network Manager > DHCP Server (tab)". Uncheck the "Enable Server" checkbox and click the "Apply" button.
+On the terminal execute the command below:
 
 ```
 vboxmanage list dhcpservers
