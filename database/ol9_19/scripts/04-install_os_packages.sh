@@ -4,16 +4,14 @@ echo "**************************************************************************
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
 dnf install -y dnf-utils zip unzip
-
 dnf install -y oracle-database-preinstall-19c
-
+dnf install -y libxcrypt-compat
 
 echo "******************************************************************************"
 echo "Firewall." `date`
 echo "******************************************************************************"
 systemctl stop firewalld
 systemctl disable firewalld
-
 
 echo "******************************************************************************"
 echo "SELinux." `date`

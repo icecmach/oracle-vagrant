@@ -4,31 +4,31 @@ echo "**************************************************************************
 echo "Create a listener.ora file if it doesn't already exist." `date`
 echo "******************************************************************************"
 if [ ! -f ${ORACLE_HOME}/network/admin/listener.ora ]; then
-  
+
   cat > ${ORACLE_HOME}/network/admin/listener.ora <<EOF
-LISTENER = 
-(DESCRIPTION_LIST = 
-  (DESCRIPTION = 
-    (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1)) 
-    (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521)) 
-  ) 
-) 
+LISTENER =
+(DESCRIPTION_LIST =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1))
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
+  )
+)
 USE_SID_AS_SERVICE_listener=on
 INBOUND_CONNECT_TIMEOUT_LISTENER=400
 EOF
 
   cat > ${ORACLE_HOME}/network/admin/tnsnames.ora <<EOF
 LISTENER = (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
-${ORACLE_SID}= 
-(DESCRIPTION = 
+${ORACLE_SID}=
+(DESCRIPTION =
   (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
   (CONNECT_DATA =
     (SERVER = DEDICATED)
     (SERVICE_NAME = ${ORACLE_SID})
   )
 )
-${PDB_NAME}= 
-(DESCRIPTION = 
+${PDB_NAME}=
+(DESCRIPTION =
   (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
   (CONNECT_DATA =
     (SERVER = DEDICATED)
@@ -42,7 +42,6 @@ SQLNET.INBOUND_CONNECT_TIMEOUT=400
 EOF
 
 fi
-
 
 echo "******************************************************************************"
 echo "Check if database already exists." `date`

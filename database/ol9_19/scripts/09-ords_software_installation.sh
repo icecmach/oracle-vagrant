@@ -11,15 +11,24 @@ echo "**************************************************************************
 mkdir -p /u01/java
 cd /u01/java
 tar -xzf /vagrant/software/${JAVA_SOFTWARE}
-TEMP_FILE=`ls`
-ln -s ${TEMP_FILE} latest
+TEMP_FILE=`ls -d graal*`
+# Check if the symbolic link exists
+if [ -L latest ]; then
+    rm latest
+else
+    ln -s ${TEMP_FILE} latest
+fi
 
 # Tomcat
 mkdir -p /u01/tomcat
 cd /u01/tomcat
 tar -xzf /vagrant/software/${TOMCAT_SOFTWARE}
-TEMP_FILE=`ls`
-ln -s ${TEMP_FILE} latest
+TEMP_FILE=`ls -d apache*`
+if [ -L latest ]; then
+    rm latest
+else
+    ln -s ${TEMP_FILE} latest
+fi
 
 # CATALINA_BASE
 mkdir -p ${CATALINA_BASE}
@@ -44,7 +53,6 @@ cd ${SOFTWARE_DIR}
 rm -Rf ${CATALINA_BASE}/webapps/*
 mkdir -p ${CATALINA_BASE}/webapps/i/
 cp -R ${SOFTWARE_DIR}/apex/images/* ${CATALINA_BASE}/webapps/i/
-
 
 echo "******************************************************************************"
 echo "Configure ORDS. Safe to run on DB with existing config." `date`
@@ -71,7 +79,6 @@ EOF
 
 cp ords.war ${CATALINA_BASE}/webapps/
 
-
 echo "******************************************************************************"
 echo "Configure HTTPS." `date`
 echo "******************************************************************************"
@@ -88,7 +95,6 @@ if [ ! -f ${KEYSTORE_DIR}/keystore.jks ]; then
   sed -i -e "s|###AJP_SECRET###|${AJP_SECRET}|g" ${CATALINA_BASE}/conf/server.xml
   sed -i -e "s|###AJP_ADDRESS###|${AJP_ADDRESS}|g" ${CATALINA_BASE}/conf/server.xml
 fi;
-
 
 echo "******************************************************************************"
 echo "Restart everything." `date`
