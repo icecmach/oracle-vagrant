@@ -1,5 +1,6 @@
 shared:
-  box: oraclebase/oracle-9
+  box: oraclelinux/9-btrfs
+  box_url: https://oracle.github.io/vagrant-projects/boxes/oraclelinux/9-btrfs.json
   non_rotational: 'on'
 
 node1:

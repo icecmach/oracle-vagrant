@@ -30,7 +30,6 @@ ${NODE2_DB_UNIQUE_NAME}${DB_DOMAIN_STR} =
   )
 EOF
 
-
 cat > ${ORACLE_HOME}/network/admin/listener.ora <<EOF
 LISTENER =
   (DESCRIPTION_LIST =
@@ -69,7 +68,7 @@ cat > ${ORACLE_HOME}/network/admin/sqlnet.ora <<EOF
 SQLNET.INBOUND_CONNECT_TIMEOUT=400
 EOF
 
-# Adding the Native Network Encryption was suggested by Claudia Hüffer, Peter Wahl and Richard Evans.
+# Adding the Native Network Encryption was suggested by Claudia Hffer, Peter Wahl and Richard Evans.
 # I've made it optional.
 if [ "${NATIVE_NETWORK_ENCRYPTION}" = "true" ]; then
   cat >> ${ORACLE_HOME}/network/admin/sqlnet.ora <<EOF
@@ -120,11 +119,9 @@ echo "**************************************************************************
 echo "Create auxillary instance." `date`
 echo "******************************************************************************"
 sqlplus / as sysdba <<EOF
---SHUTDOWN IMMEDIATE;
 STARTUP NOMOUNT PFILE='/tmp/init${ORACLE_SID}_stby.ora';
 exit;
 EOF
-
 
 echo "******************************************************************************"
 echo "Create standby database using RMAN duplicate." `date`
@@ -138,7 +135,6 @@ DUPLICATE TARGET DATABASE
   SPFILE
     SET db_unique_name='${NODE2_DB_UNIQUE_NAME}' COMMENT 'Is standby'
   NOFILENAMECHECK;
-  
 exit;
 EOF
 
@@ -146,12 +142,9 @@ echo "**************************************************************************
 echo "Enable the broker." `date`
 echo "******************************************************************************"
 sqlplus / as sysdba <<EOF
-
 ALTER SYSTEM SET dg_broker_start=true;
-
 EXIT;
 EOF
-
 
 echo "******************************************************************************"
 echo "Configure broker (on primary) and display configuration." `date`
@@ -170,7 +163,7 @@ EOF
 echo "******************************************************************************"
 echo "Validate configuration." `date`
 echo "******************************************************************************"
-# Adding the validation step was suggested by Claudia Hüffer, Peter Wahl and Richard Evans.
+# Adding the validation step was suggested by Claudia Hffer, Peter Wahl and Richard Evans.
 sleep 60
 dgmgrl sys/${SYS_PASSWORD}@${NODE1_DB_UNIQUE_NAME} <<EOF
 VALIDATE DATABASE ${NODE1_DB_UNIQUE_NAME};

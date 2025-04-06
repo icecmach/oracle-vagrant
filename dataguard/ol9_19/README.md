@@ -1,4 +1,4 @@
-# Vagrant 19c Data Guard Build
+# Oracle 19c Data Guard Build
 
 The Vagrant scripts here will allow you to build a 19c Data Guard system by just starting the VMs in the correct order.
 
@@ -8,19 +8,11 @@ If you need a more detailed description of this build, check out the article her
 
 ## Required Software
 
-Download and install the following software. If you can't figure out this step, you probably shouldn't be considering a Data Guard installation.
-
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant](https://www.vagrantup.com/downloads.html)
-* Git client. Pick one that matches your OS.
-
-You will also need to download the 19c database software.
-
 * [Database LINUX.X64_193000_db_home.zip](https://www.oracle.com/technetwork/database/enterprise-edition/downloads/oracle19c-linux-5462157.html)
 
 ## Clone Repository
 
-Pick an area on your file system to act as the base for this git repository and issue the following command. If you are working on Windows, remember to check your Git settings for line terminators. If the bash scripts are converted to Windows terminators you will have problems.
+On Windows, remember to check git settings for line terminators. If the bash scripts are converted to Windows terminators it will cause problems.
 
 ```
 git clone https://github.com/oraclebase/vagrant.git
@@ -29,40 +21,38 @@ git clone https://github.com/oraclebase/vagrant.git
 Copy the Oracle software under the "dataguard/software" directory. From the "dataguard" subdirectory, the structure should look like this.
 
 ```
-tree
+➜ tree
 .
-+--- config
-|   +--- install.env
-|   +--- vagrant.yml
-+--- node1
-|   +--- scripts
-|   |   +--- oracle_create_database.sh
-|   |   +--- oracle_user_environment_setup.sh
-|   |   +--- root_setup.sh
-|   |   +--- setup.sh
-|   +--- Vagrantfile
-+--- node2
-|   +--- scripts
-|   |   +--- oracle_create_database.sh
-|   |   +--- oracle_user_environment_setup.sh
-|   |   +--- root_setup.sh
-|   |   +--- setup.sh
-|   +--- Vagrantfile
-+--- README.md
-+--- shared_scripts
-|   +--- configure_chrony.sh
-|   +--- configure_hostname.sh
-|   +--- configure_hosts_base.sh
-|   +--- configure_shared_disks.sh
-|   +--- install_os_packages.sh
-|   +--- oracle_db_software_installation.sh
-|   +--- oracle_software_patch.sh
-|   +--- prepare_u01_disk.sh
-+--- software
-|   +--- LINUX.X64_193000_db_home.zip
-|   +--- p36866623_190000_Linux-x86-64.zip
-|   +--- p6880880_190000_Linux-x86-64.zip
-|   +--- put_software_here.tx
+├── config
+│   ├── install.env
+│   └── vagrant.yml
+├── node1
+│   ├── scripts
+│   │   ├── oracle_create_database.sh
+│   │   ├── oracle_user_environment_setup.sh
+│   │   ├── root_setup.sh
+│   │   └── setup.sh
+│   └── Vagrantfile
+├── node2
+│   ├── scripts
+│   │   ├── oracle_create_database.sh
+│   │   ├── oracle_user_environment_setup.sh
+│   │   ├── root_setup.sh
+│   │   └── setup.sh
+│   └── Vagrantfile
+├── README.md
+├── shared_scripts
+│   ├── configure_chrony.sh
+│   ├── configure_hostname.sh
+│   ├── configure_hosts_base.sh
+│   ├── install_os_packages.sh
+│   ├── oracle_db_software_installation.sh
+│   ├── oracle_software_patch.sh
+│   └── prepare_u01_disk.sh
+└── software
+    └── put_software_here.txt
+
+8 directories, 21 files
 ```
 
 The patch files in the "software" directory are optional. By detault the patch script is commented out from the node-specific "root_setup.sh" scripts.

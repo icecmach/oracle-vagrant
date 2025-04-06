@@ -30,7 +30,6 @@ ${NODE2_DB_UNIQUE_NAME}${DB_DOMAIN_STR} =
   )
 EOF
 
-
 cat > ${ORACLE_HOME}/network/admin/listener.ora <<EOF
 LISTENER =
   (DESCRIPTION_LIST =
@@ -64,12 +63,11 @@ ADR_BASE_LISTENER = ${ORACLE_BASE}
 INBOUND_CONNECT_TIMEOUT_LISTENER=400
 EOF
 
-
 cat > ${ORACLE_HOME}/network/admin/sqlnet.ora <<EOF
 SQLNET.INBOUND_CONNECT_TIMEOUT=400
 EOF
 
-# Adding the Native Network Encryption was suggested by Claudia Hüffer, Peter Wahl and Richard Evans.
+# Adding the Native Network Encryption was suggested by Claudia Hffer, Peter Wahl and Richard Evans.
 # I've made it optional.
 if [ "${NATIVE_NETWORK_ENCRYPTION}" = "true" ]; then
   cat >> ${ORACLE_HOME}/network/admin/sqlnet.ora <<EOF
@@ -171,8 +169,6 @@ ALTER DATABASE FLASHBACK ON;
 ALTER SYSTEM SET STANDBY_FILE_MANAGEMENT=AUTO;
 EXIT;
 EOF
-
-
 
 echo "******************************************************************************"
 echo "Enable the broker." `date`
