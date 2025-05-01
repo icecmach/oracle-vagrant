@@ -23,7 +23,6 @@ export CLASSPATH=\$ORACLE_HOME/jlib:\$ORACLE_HOME/rdbms/jlib
 
 export ORA_INVENTORY=${ORA_INVENTORY}
 
-
 # Tomcat settings.
 export JAVA_HOME=${JAVA_HOME}
 export CATALINA_HOME=${CATALINA_HOME}
@@ -33,12 +32,10 @@ export JAVA_OPTS="-Dconfig.url=${ORDS_CONF} -Xms1126M -Xmx1126M"
 export PATH=${ORDS_HOME}/bin:\$PATH
 EOF
 
-
 echo "******************************************************************************"
 echo "Add it to the .bash_profile." `date`
 echo "******************************************************************************"
 echo ". ${SCRIPTS_DIR}/setEnv.sh" >> /home/oracle/.bash_profile
-
 
 echo "******************************************************************************"
 echo "Create start/stop scripts." `date`
@@ -56,7 +53,6 @@ export ORAENV_ASK=YES
 dbstart \$ORACLE_HOME
 EOF
 
-
 cat > ${SCRIPTS_DIR}/stop_all.sh <<EOF
 #!/bin/bash
 . ${SCRIPTS_DIR}/setEnv.sh
@@ -70,7 +66,7 @@ EOF
 
 # Add Tomcat management if required.
 if [ "${INSTALL_ORDS}" = "true" ]; then
-  
+
 cat >> ${SCRIPTS_DIR}/start_all.sh <<EOF
 
 \$CATALINA_HOME/bin/startup.sh

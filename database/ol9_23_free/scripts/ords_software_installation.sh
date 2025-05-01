@@ -40,7 +40,6 @@ rm -Rf ${CATALINA_BASE}/webapps/*
 mkdir -p ${CATALINA_BASE}/webapps/i/
 cp -R ${SOFTWARE_DIR}/apex/images/* ${CATALINA_BASE}/webapps/i/
 
-
 echo "******************************************************************************"
 echo "Configure ORDS. Safe to run on DB with existing config." `date`
 echo "******************************************************************************"
@@ -66,7 +65,6 @@ EOF
 
 cp ords.war ${CATALINA_BASE}/webapps/
 
-
 echo "******************************************************************************"
 echo "Configure HTTPS." `date`
 echo "******************************************************************************"
@@ -83,7 +81,6 @@ if [ ! -f ${KEYSTORE_DIR}/keystore.jks ]; then
   sed -i -e "s|###AJP_SECRET###|${AJP_SECRET}|g" ${CATALINA_BASE}/conf/server.xml
   sed -i -e "s|###AJP_ADDRESS###|${AJP_ADDRESS}|g" ${CATALINA_BASE}/conf/server.xml
 fi;
-
 
 echo "******************************************************************************"
 echo "Restart everything." `date`

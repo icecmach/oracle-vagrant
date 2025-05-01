@@ -2,30 +2,25 @@
 
 A simple Vagrant build for Oracle Linux 9.
 
-## Required Software
-
-* [Vagrant](https://www.vagrantup.com/downloads.html)
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-
 ```
-$ tree
+➜ tree
 .
-+--- config
-|   +--- install.env
-|   +--- vagrant.yml
-+--- README.md
-+--- scripts
-|   +--- prepare_disks.sh
-|   +--- setup.sh
-+--- software
-|   +--- put_software_here.txt
-+--- Vagrantfile
-$
+├── config
+│   └── vagrant.yml
+├── README.md
+├── scripts
+│   ├── prepare_disks.sh
+│   └── setup.sh
+├── software
+│   └── put_software_here.txt
+└── Vagrantfile
+
+4 directories, 6 files
 ```
 
 With everything in place, you can initiate the build as follows.
 
 ```
-cd oracle-vagrant\database\ol9_clean\
+cd oracle-vagrant\linux\ol9_clean\
 vagrant up
 ```

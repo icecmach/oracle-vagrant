@@ -1,4 +1,5 @@
-box: oraclebase/oracle-9
+box: oraclelinux/9-btrfs
+box_url: https://oracle.github.io/vagrant-projects/boxes/oraclelinux/9-btrfs.json
 vm_name: ol9_vagrant
 mem_size: 4096
 cpus: 4

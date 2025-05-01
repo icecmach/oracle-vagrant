@@ -5,6 +5,7 @@ require 'yaml'
 # Variables
 params = YAML.load_file 'config/vagrant.yml'
 var_box            = params['box']
+var_box_url        = params['box_url']
 var_vm_name        = params['vm_name']
 var_mem_size       = params['mem_size']
 var_cpus           = params['cpus']
@@ -27,6 +28,9 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = var_box
+
+  # The url from where the 'config.vm.box' box will be fetched if it
+  config.vm.box_url = var_box_url
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -70,7 +74,7 @@ Vagrant.configure("2") do |config|
     vb.memory = var_mem_size
     vb.cpus   = var_cpus
     vb.name   = var_vm_name
-    
+
     vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', '0', '--nonrotational', var_non_rotational]
 
     unless File.exist?(var_disk1_name)
