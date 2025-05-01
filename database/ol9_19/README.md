@@ -2,23 +2,23 @@
 
 ## Required Software
 
-* [Oracle Database](https://www.oracle.com/technetwork/database/enterprise-edition/downloads/oracle19c-linux-5462157.html)
-* [Oracle REST Data Services (ORDS)](https://www.oracle.com/technetwork/developer-tools/rest-data-services/downloads/)
-* [Oracle SQLcl](https://www.oracle.com/tools/downloads/sqlcl-downloads.html)
-* [Oracle Application Express (APEX)](https://www.oracle.com/tools/downloads/apex-downloads.html)
-* [GraalVM](https://www.graalvm.org/downloads/)
-* [Tomcat 9](https://tomcat.apache.org/download-90.cgi)
+- [Oracle Database](https://www.oracle.com/technetwork/database/enterprise-edition/downloads/oracle19c-linux-5462157.html)
+- [Oracle REST Data Services (ORDS)](https://www.oracle.com/technetwork/developer-tools/rest-data-services/downloads/)
+- [Oracle SQLcl](https://www.oracle.com/tools/downloads/sqlcl-downloads.html)
+- [Oracle Application Express (APEX)](https://www.oracle.com/tools/downloads/apex-downloads.html)
+- [GraalVM](https://www.graalvm.org/downloads/)
+- [Tomcat 9](https://tomcat.apache.org/download-90.cgi)
 
 To patch the installation download the following files:
 
-* [Patch 35742413: COMBO OF OJVM RU COMPONENT 19.21.0.0.231017 + DB RU 19.21.0.0.231017](https://support.oracle.com)
-* [Patch 6880880: OPatch 19.x](https://updates.oracle.com/download/6880880.html)
+- [Patch 35742413: COMBO OF OJVM RU COMPONENT 19.21.0.0.231017 + DB RU 19.21.0.0.231017](https://support.oracle.com)
+- [Patch 6880880: OPatch 19.x](https://updates.oracle.com/download/6880880.html)
 
 Place the software in the "software" directory before calling the vagrant up command.
 
 Directory contents when software is included.
 
-```
+```bash
 ➜ tree
 .
 ├── config
@@ -58,7 +58,7 @@ To include the patches, set the PATCH_DB variable in the "install.env" file with
 
 With everything in place, start the build as follows.
 
-```
+```bash
 cd oracle-vagrant/database/ol9_19
 ➜ vagrant up
 ```

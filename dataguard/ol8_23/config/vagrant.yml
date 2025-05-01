@@ -1,6 +1,7 @@
 shared:
-  box: oraclebase/oracle-8
-  non_rotational: 'on'
+  box: oraclelinux/8-btrfs
+  box_url: https://oracle.github.io/vagrant-projects/boxes/oraclelinux/8-btrfs.json
+  non_rotational: "on"
 
 node1:
   vm_name: ol8_23_dg1

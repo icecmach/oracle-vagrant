@@ -51,7 +51,7 @@ The database password is set in the "install.env" file. By default it is set to 
 
 With everything in place, you can initiate the build as follows.
 
-```
+```bash
 cd oracle-vagrant\database\ol9_23_free\
 vagrant up
 ```

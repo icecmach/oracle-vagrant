@@ -4,8 +4,7 @@ echo "**************************************************************************
 echo "Enable read-only Oracle home." `date`
 echo "******************************************************************************"
 cd $ORACLE_HOME/bin
-./roohctl -enable 
-
+./roohctl -enable
 
 echo "******************************************************************************"
 echo "Configure network scripts." `date`
@@ -36,7 +35,6 @@ ${NODE2_DB_UNIQUE_NAME}${DB_DOMAIN_STR} =
     )
   )
 EOF
-
 
 cat > ${READONLY_HOME}/network/admin/listener.ora <<EOF
 LISTENER =
@@ -71,12 +69,11 @@ ADR_BASE_LISTENER = ${ORACLE_BASE}
 INBOUND_CONNECT_TIMEOUT_LISTENER=400
 EOF
 
-
 cat > ${READONLY_HOME}/network/admin/sqlnet.ora <<EOF
 SQLNET.INBOUND_CONNECT_TIMEOUT=400
 EOF
 
-# Adding the Native Network Encryption was suggested by Claudia Hüffer, Peter Wahl and Richard Evans.
+# Adding the Native Network Encryption was suggested by Claudia Hffer, Peter Wahl and Richard Evans.
 # I've made it optional.
 if [ "${NATIVE_NETWORK_ENCRYPTION}" = "true" ]; then
   cat >> ${READONLY_HOME}/network/admin/sqlnet.ora <<EOF
@@ -130,6 +127,7 @@ dbca -silent -createDatabase                                                 \
   -redoLogFileSize 50                                                        \
   -emConfiguration NONE                                                      \
   -initparams db_name=${DB_NAME},db_unique_name=${NODE1_DB_UNIQUE_NAME}      \
+  -dbOptions OMS:false,JSERVER:false,SPATIAL:false,CWMLITE:false,ORACLE_TEXT:false,IMEDIA:false \
   -ignorePreReqs
 
 echo "******************************************************************************"
@@ -152,7 +150,6 @@ dgmgrl / as sysdba <<EOF
 prepare database for data guard
   with db_unique_name is ${NODE1_DB_UNIQUE_NAME}
   db_recovery_file_dest is "${ORACLE_BASE}/fast_recovery_area"
-  db_recovery_file_dest_size is 20g
-  restart;
-exit;
+  db_recovery_file_dest_size is 20g;
+quit;
 EOF

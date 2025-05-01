@@ -4,23 +4,23 @@ The Vagrant scripts here will allow you to build a 19c Data Guard system by just
 
 If you need a more detailed description of this build, check out the article here.
 
-* [Data Guard Physical Standby Setup Using the Data Guard Broker in Oracle Database 19c](https://oracle-base.com/articles/19c/data-guard-setup-using-broker-19c)
+- [Data Guard Physical Standby Setup Using the Data Guard Broker in Oracle Database 19c](https://oracle-base.com/articles/19c/data-guard-setup-using-broker-19c)
 
 ## Required Software
 
-* [Database LINUX.X64_193000_db_home.zip](https://www.oracle.com/technetwork/database/enterprise-edition/downloads/oracle19c-linux-5462157.html)
+- [Database LINUX.X64_193000_db_home.zip](https://www.oracle.com/technetwork/database/enterprise-edition/downloads/oracle19c-linux-5462157.html)
 
 ## Clone Repository
 
 On Windows, remember to check git settings for line terminators. If the bash scripts are converted to Windows terminators it will cause problems.
 
-```
-git clone https://github.com/oraclebase/vagrant.git
+```bash
+git clone https://github.com/icecmach/oracle-vagrant.git
 ```
 
 Copy the Oracle software under the "dataguard/software" directory. From the "dataguard" subdirectory, the structure should look like this.
 
-```
+```bash
 ➜ tree
 .
 ├── config
@@ -63,14 +63,14 @@ The following commands will leave you with a functioning Data Guard installation
 
 Start the first node and wait for it to complete. This will create the primary database.
 
-```
+```bash
 cd node1
 vagrant up
 ```
 
 Start the second node and wait for it to complete. This will create the standby database and configure the broker.
 
-```
+```bash
 cd ../node2
 vagrant up
 ```
@@ -79,7 +79,7 @@ vagrant up
 
 Perform the following to turn off the system cleanly.
 
-```
+```bash
 cd ../node2
 vagrant halt
 
@@ -91,7 +91,7 @@ vagrant halt
 
 The following commands will destroy all VMs and the associated files, so you can run the process again.
 
-```
+```bash
 cd ../node2
 vagrant destroy -f
 

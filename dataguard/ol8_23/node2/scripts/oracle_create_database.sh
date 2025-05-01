@@ -4,8 +4,7 @@ echo "**************************************************************************
 echo "Enable read-only Oracle home." `date`
 echo "******************************************************************************"
 cd $ORACLE_HOME/bin
-./roohctl -enable 
-
+./roohctl -enable
 
 echo "******************************************************************************"
 echo "Configure network scripts." `date`
@@ -36,7 +35,6 @@ ${NODE2_DB_UNIQUE_NAME}${DB_DOMAIN_STR} =
     )
   )
 EOF
-
 
 cat > ${READONLY_HOME}/network/admin/listener.ora <<EOF
 LISTENER =
@@ -71,12 +69,11 @@ ADR_BASE_LISTENER = ${ORACLE_BASE}
 INBOUND_CONNECT_TIMEOUT_LISTENER=400
 EOF
 
-
 cat > ${READONLY_HOME}/network/admin/sqlnet.ora <<EOF
 SQLNET.INBOUND_CONNECT_TIMEOUT=400
 EOF
 
-# Adding the Native Network Encryption was suggested by Claudia Hüffer, Peter Wahl and Richard Evans.
+# Adding the Native Network Encryption was suggested by Claudia Hffer, Peter Wahl and Richard Evans.
 # I've made it optional.
 if [ "${NATIVE_NETWORK_ENCRYPTION}" = "true" ]; then
   cat >> ${READONLY_HOME}/network/admin/sqlnet.ora <<EOF
@@ -127,11 +124,9 @@ echo "**************************************************************************
 echo "Create auxillary instance." `date`
 echo "******************************************************************************"
 sqlplus / as sysdba <<EOF
---shutdown immediate;
 startup nomount pfile='/tmp/init${ORACLE_SID}_stby.ora';
 exit;
 EOF
-
 
 echo "******************************************************************************"
 echo "Create standby database using RMAN duplicate." `date`
@@ -145,7 +140,7 @@ duplicate target database
   spfile
     set db_unique_name='${NODE2_DB_UNIQUE_NAME}' comment 'Is standby'
   nofilenamecheck;
-  
+
 exit;
 EOF
 
@@ -158,7 +153,6 @@ alter system set dg_broker_start=true;
 
 EXIT;
 EOF
-
 
 echo "******************************************************************************"
 echo "Configure broker (on primary) and display configuration." `date`
@@ -177,7 +171,7 @@ EOF
 echo "******************************************************************************"
 echo "Validate configuration." `date`
 echo "******************************************************************************"
-# Adding the validation step was suggested by Claudia Hüffer, Peter Wahl and Richard Evans.
+# Adding the validation step was suggested by Claudia Hffer, Peter Wahl and Richard Evans.
 sleep 60
 dgmgrl sys/${SYS_PASSWORD}@${NODE1_DB_UNIQUE_NAME} <<EOF
 validate database ${NODE1_DB_UNIQUE_NAME};

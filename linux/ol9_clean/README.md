@@ -2,7 +2,7 @@
 
 A simple Vagrant build for Oracle Linux 9.
 
-```
+```bash
 ➜ tree
 .
 ├── config
@@ -20,7 +20,7 @@ A simple Vagrant build for Oracle Linux 9.
 
 With everything in place, you can initiate the build as follows.
 
-```
+```bash
 cd oracle-vagrant\linux\ol9_clean\
 vagrant up
 ```

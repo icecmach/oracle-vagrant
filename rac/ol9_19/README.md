@@ -8,10 +8,10 @@ You will also need to download the 19c grid and database software, along with th
 
 ## Required Software
 
-* [Grid: LINUX.X64_193000_grid_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
-* [Database: LINUX.X64_193000_db_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
-* [Patch 36031453: COMBO OF OJVM RU COMPONENT 19.22.0.0.240116 + GI RU 19.22.0.0.240116](https://support.oracle.com)
-* [Patch 6880880: OPatch 19.x](https://updates.oracle.com/download/6880880.html)
+- [Grid: LINUX.X64_193000_grid_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
+- [Database: LINUX.X64_193000_db_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
+- [Patch 36031453: COMBO OF OJVM RU COMPONENT 19.22.0.0.240116 + GI RU 19.22.0.0.240116](https://support.oracle.com)
+- [Patch 6880880: OPatch 19.x](https://updates.oracle.com/download/6880880.html)
 
 ## Warning
 
@@ -29,13 +29,13 @@ node2: mem_size: 8192
 
 Pick an area on your file system to act as the base for this git repository and issue the following command. If you are working on Windows, remember to check your Git settings for line terminators. If the bash scripts are converted to Windows terminators you will have problems.
 
-```
-git clone https://github.com/icecreammachine/oracle-vagrant.git
+```bash
+git clone https://github.com/icecmach/oracle-vagrant.git
 ```
 
 Copy the Oracle software under the "..../software/" directory. From the "rac" subdirectory, the structure should look like this.
 
-```
+```bash
 ➜ tree
 .
 ├── config
@@ -120,21 +120,21 @@ The following commands will leave you with a functioning RAC installation.
 
 Start the DNS server.
 
-```
+```bash
 cd dns
 vagrant up
 ```
 
 Start the second node of the cluster. This must be running before you start the first node.
 
-```
+```bash
 cd ../node2
 vagrant up
 ```
 
 Start the first node of the cluster. This will perform all of the installations operations. Depending on the spec of the host system, this could take a long time. It took about 1h10min to complete in my workstation.
 
-```
+```bash
 cd ../node1
 vagrant up
 ```
@@ -143,7 +143,7 @@ vagrant up
 
 Perform the following to turn off the RAC cleanly.
 
-```
+```bash
 cd ../node2
 vagrant halt
 
@@ -158,7 +158,7 @@ vagrant halt
 
 The following commands will destroy all VMs and the associated files, so you can run the process again.
 
-```
+```bash
 cd ../node2
 vagrant destroy -f
 
@@ -175,9 +175,9 @@ Check all the shared disks have been removed as expected. If they are left behin
 
 If the VirtualBox DHCP server is enabled, you may see something like this.
 
-* DNS up and running.
-* Node2 up and running.
-* Node1 grid configuration fails with the following error.
+- DNS up and running.
+- Node2 up and running.
+- Node1 grid configuration fails with the following error.
 
 ```
 default: Do grid software-only installation. Wed Nov 18 23:32:46 UTC 2020
@@ -194,7 +194,7 @@ On the GUI, navigate to "File > Host Network Manager > DHCP Server (tab)". Unche
 
 On the terminal execute the command below:
 
-```
+```bash
 vboxmanage list dhcpservers
 vboxmanage dhcpserver remove --netname HostInterfaceNetworking-vboxnet0
 ```
