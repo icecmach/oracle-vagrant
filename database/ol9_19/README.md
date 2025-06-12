@@ -11,7 +11,7 @@
 
 To patch the installation download the following files:
 
-- [Patch 35742413: COMBO OF OJVM RU COMPONENT 19.21.0.0.231017 + DB RU 19.21.0.0.231017](https://support.oracle.com)
+- [Patch 37591483: COMBO OF OJVM COMPONENT 19.27.0.0.250415 + DB RU 19.27.0.0.250415](https://support.oracle.com)
 - [Patch 6880880: OPatch 19.x](https://updates.oracle.com/download/6880880.html)
 
 Place the software in the "software" directory before calling the vagrant up command.
@@ -45,10 +45,10 @@ Directory contents when software is included.
 │   ├── graalvm-jdk-21_linux-x64_bin.tar.gz
 │   ├── LINUX.X64_193000_db_home.zip
 │   ├── ords-24.4.0.345.1601.zip
-│   ├── p36866623_190000_Linux-x86-64.zip
+│   ├── p37591483_190000_Linux-x86-64.zip
 │   ├── p6880880_190000_Linux-x86-64.zip
 │   ├── put_software_here.txt
-│   └── sqlcl-24.4.4.086.1931.zip
+│   └── sqlcl-25.1.1.113.2054.zip
 └── Vagrantfile
 
 4 directories, 26 files

@@ -61,6 +61,7 @@ export ORAENV_ASK=NO
 export ORAENV_ASK=YES
 
 dbstart \$ORACLE_HOME
+lsnrctl start
 EOF
 
 cat > ${SCRIPTS_DIR}/stop_all.sh <<EOF
@@ -72,6 +73,7 @@ export ORAENV_ASK=NO
 export ORAENV_ASK=YES
 
 dbshut \$ORACLE_HOME
+lsnrctl stop
 EOF
 
 # Add Tomcat management if required.

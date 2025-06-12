@@ -8,7 +8,7 @@ var_vm_name        = 'ol9_23_free'
 var_mem_size       = 4096
 var_cpus           = 2
 var_non_rotational = 'on' # SSD
-var_public_ip      = '192.168.56.140'
+var_public_ip      = '192.168.56.125'
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
