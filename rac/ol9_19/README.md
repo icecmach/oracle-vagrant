@@ -10,7 +10,7 @@ You will also need to download the 19c grid and database software, along with th
 
 - [Grid: LINUX.X64_193000_grid_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
 - [Database: LINUX.X64_193000_db_home.zip](https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html)
-- [Patch 36031453: COMBO OF OJVM RU COMPONENT 19.22.0.0.240116 + GI RU 19.22.0.0.240116](https://support.oracle.com)
+- [Patch 37591516 COMBO OF OJVM COMPONENT 19.27.0.0.250415 + GI RU 19.27.0.0.250415](https://support.oracle.com)
 - [Patch 6880880: OPatch 19.x](https://updates.oracle.com/download/6880880.html)
 
 ## Warning
@@ -75,7 +75,7 @@ Copy the Oracle software under the "..../software/" directory. From the "rac" su
 └── software
     ├── LINUX.X64_193000_db_home.zip
     ├── LINUX.X64_193000_grid_home.zip
-    ├── p36866740_190000_Linux-x86-64.zip
+    ├── p37591516_190000_Linux-x86-64.zip
     ├── p6880880_190000_Linux-x86-64.zip
     └── put_software_here.txt
 

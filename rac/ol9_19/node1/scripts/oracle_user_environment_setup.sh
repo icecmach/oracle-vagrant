@@ -113,6 +113,7 @@ echo "Unzip grid software." `date`
 echo "******************************************************************************"
 cd ${GRID_HOME}
 unzip -oq /vagrant_software/${GRID_SOFTWARE}
+sed -i 's/#CV_ASSUME_DISTID=OEL5/CV_ASSUME_DISTID=OEL8.1/g' cv/admin/cvu_config
 unzip -oq /vagrant_software/${OPATCH_FILE}
 cd ${SOFTWARE_DIR}
 unzip -oq /vagrant_software/${PATCH_FILE}
